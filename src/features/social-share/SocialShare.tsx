@@ -15,7 +15,7 @@ export default function SocialShare() {
           url,
         });
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      } catch (_) {
+      } catch {
         // user cancelled
       }
     } else {
