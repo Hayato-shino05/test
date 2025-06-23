@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hội Mẹ Bầu Đơn Thân</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/autumn-leaves.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+<style>
+    .social-share {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+    
+    .share-button {
+        border: none;
+        background: #f0f0f0;
+        padding: 0.8rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .share-button:hover {
+        transform: scale(1.1);
+        background: #e0e0e0;
+    }
+    
+    .fa-facebook-f {
+        color: #1877f2;
+    }
+    
+    .fa-x-twitter {
+        color: #000000;
+    }
+    
+    .fa-instagram {
+        color: #e4405f;
+    }
+    </style>
+</head>
+<body>
+    <!-- Photo Album Button -->
+    <button class="feature-button" id="openAlbum">
+        📸 Xem Album Kỷ niệm
+    </button>
+
+    <!-- Games Section -->
+    <div class="games-container">
+        <button class="game-button" id="startMemoryGame">🎮 Trò chơi Trí nhớ</button>
+        <button class="game-button" id="startPuzzleGame">🧩 Ghép hình</button>
+        <button id="openCalendar" class="game-button">📅 Lịch sinh nhật</button>
+        <button id="startBirthdayQuiz" class="game-button">❓ đoán sinh nhật</button>
+    </div>
+
+
+
+    </div>
+
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <select id="languageSelect">
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+
+    <!-- Custom Message Button -->
+    <div class="custom-message-container">
+        <button class="feature-button" id="customMessageBtn">✍️ Gửi Lời Chúc</button>
+        <button class="feature-button" id="bulletinBoardBtn">📋 Bảng Tin Chúc Mừng</button>
+    </div>
+
+    <!-- Bulletin Board Modal -->
+    <div class="bulletin-board-modal" id="bulletinBoardModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeBulletinBoard">&times;</span>
+            <h2>Bảng Tin Chúc Mừng Sinh Nhật</h2>
+            <div class="bulletin-posts" id="bulletinPosts"></div>
+            <div class="post-form">
+                <input type="text" id="postSender" placeholder="Tên của bạn..." maxlength="50">
+                <textarea id="postMessage" placeholder="Nhập lời chúc của bạn tại đây..." maxlength="300"></textarea>
+                <button id="selectGiftBtn" class="gift-select-btn">🎁 Chọn Quà Tặng Ảo</button>
+                <div id="selectedGiftDisplay" style="display: none; margin-top: 10px; color: #854D27;"></div>
+                <button id="submitPost">Đăng Lời Chúc</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Gift Selection Modal -->
+    <div class="virtual-gift-modal" id="virtualGiftModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeVirtualGift">&times;</span>
+            <h2>Chọn Quà Tặng Ảo</h2>
+            <div class="gift-list" id="giftList"></div>
+        </div>
+    </div>
+
+    <!-- Custom Message Modal -->
+    <div class="custom-message-modal" id="customMessageModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeCustomMessage">&times;</span>
+            <h2>Nhập Lời Chúc Sinh Nhật</h2>
+            <textarea id="customMessageInput" placeholder="Nhập lời chúc của bạn tại đây..." maxlength="200"></textarea>
+            <button id="submitCustomMessage">Gửi Lời Chúc</button>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-control" id="playMusic">▶️</button>
+        <span class="song-title">Happy Birthday Song</span>
+    </div>
+
+    <!-- Memory Wall Modal -->
+    <div class="memory-wall" id="memoryWall">
+        <div class="photo-gallery" id="photoGallery"></div>
+        <div class="swiper-container" id="slideshowContainer">
+            <div class="swiper-wrapper" id="slideshowWrapper"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+            <div class="slideshow-controls">
+                <button id="closeSlideshow">Đóng Slideshow</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="balloon-container" id="balloonContainer">
+        <!-- Balloons will be added here by JavaScript -->
+    </div>
+    
+    <div class="container">
+        <h1 id="birthdayTitle" style="display: none;">Chúc Mừng Sinh Nhật</h1>
+        
+        <div class="countdown" id="countdown">
+            <p>Còn <span id="days">0</span> ngày, <span id="hours">0</span> giờ, <span id="minutes">0</span> phút, <span id="seconds">0</span> giây nữa là đến sinh nhật!</p>
+        </div>
+        
+        <div id="birthdayContent" class="hidden">
+            <div class="cake-container">
+                <!-- Bánh 3D sẽ được thêm bởi JavaScript -->
+            </div>
+            
+            <button id="micPermissionBtn">Cho phép sử dụng microphone</button>
+            <button id="blowButton">Thổi nến!</button>
+            <canvas id="audioFeedback"></canvas>
+            
+            <div class="progress-container" id="progressContainer">
+                <div id="blowProgress">0%</div>
+            </div>
+            
+            <p class="message" id="birthdayMessage">
+                Chúc mừng sinh nhật bạn! Hy vọng ngày hôm nay của bạn tràn đầy niềm vui và hạnh phúc!
+            </p>
+            <div id="customMessageDisplay" class="custom-message-display"></div>
+        </div>
+    </div>
+
+    <script defer src="js/core.js"></script>
+    <script defer src="js/themes.js"></script>
+    <script defer src="js/features.js"></script>
+    <script defer src="js/community.js"></script>
+    <script defer src="js/autumn-leaves.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+    <!-- Lazy-load helper for images created dynamically -->
+    <script defer>
+      document.addEventListener('DOMContentLoaded', () => {
+        const ensureLazy = img => {
+          if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy')
+        }
+        document.querySelectorAll('img').forEach(ensureLazy)
+        const observer = new MutationObserver(ms => {
+          ms.forEach(m => {
+            m.addedNodes.forEach(node => {
+              if (node.nodeType === 1) {
+                if (node.tagName === 'IMG') ensureLazy(node)
+                node.querySelectorAll?.('img').forEach(ensureLazy)
+              }
+            })
+          })
+        })
+        observer.observe(document.body, { childList: true, subtree: true })
+      })
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+</body>
+</html>
