@@ -82,7 +82,7 @@ export function useBirthdayCountdown(birthdays: BirthdayPerson[] = DEFAULT_BIRTH
           name: r.name as string,
           month: d.getUTCMonth() + 1,
           day: d.getUTCDate(),
-          message: (r as any).message ?? "",
+          message: (r as Record<string, string>).message ?? "",
         } as BirthdayPerson;
       });
       if (mapped.length) setRemoteBirthdays(mapped);

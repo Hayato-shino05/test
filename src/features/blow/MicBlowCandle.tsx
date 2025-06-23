@@ -6,6 +6,10 @@ interface Props {
   onExtinguish: () => void;
 }
 
+interface WebkitWindow extends Window {
+  webkitAudioContext: typeof AudioContext;
+}
+
 export default function MicBlowCandle({ onExtinguish }: Props) {
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState(false);
@@ -28,13 +32,13 @@ export default function MicBlowCandle({ onExtinguish }: Props) {
       cleanup();
       onExtinguish();
     }
-  }, [progress]);
+  }, [progress, onExtinguish]);
 
   const start = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
-      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const ctx = new (window.AudioContext || (window as unknown as WebkitWindow).webkitAudioContext)();
       audioCtxRef.current = ctx;
       const analyser = ctx.createAnalyser();
       analyser.fftSize = 1024;

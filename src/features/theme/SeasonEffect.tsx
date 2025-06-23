@@ -25,12 +25,8 @@ function createParticles(count = 30): Particle[] {
   }));
 }
 
-export default function SeasonEffect() {
-  const season = useSeasonTheme();
-  if (season === "autumn") return <LeafFall count={40} />;
-  if (season === "spring") return <PetalFall count={40} />;
-  if (season === "winter") return <SnowFall count={60} />;
-  if (season === "summer") return <Firefly count={40} />;
+// Separate component for default effect that uses refs and useEffect
+function DefaultEffect({ season }: { season: Season | null }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,4 +63,17 @@ export default function SeasonEffect() {
   }, [season]);
 
   return <div ref={containerRef} className="pointer-events-none fixed inset-0 overflow-hidden -z-10" />;
+}
+
+export default function SeasonEffect() {
+  const season = useSeasonTheme();
+  
+  // Return appropriate seasonal effect based on season
+  if (season === "autumn") return <LeafFall count={40} />;
+  if (season === "spring") return <PetalFall count={40} />;
+  if (season === "winter") return <SnowFall count={60} />;
+  if (season === "summer") return <Firefly count={40} />;
+  
+  // Default effect if no specific season component
+  return <DefaultEffect season={season} />;
 }

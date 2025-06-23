@@ -2,7 +2,7 @@
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useT } from "@/providers/I18nProvider";
-import { Locale, locales } from "@/i18n";
+import { Locale } from "@/i18n";
 
 export default function LanguageSwitcher() {
   const t = useT();

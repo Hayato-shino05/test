@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Card {
   id: number;
@@ -87,7 +87,6 @@ export default function MemoryCardGame() {
     if (matchedPairs === SYMBOLS.length) {
       // delay alert to allow last card animation
       setTimeout(() => {
-        // eslint-disable-next-line no-alert
         alert("Chúc mừng! Bạn đã tìm hết các cặp!");
         // reset game
         const doubled = SYMBOLS.flatMap((s, idx) => [

@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import { renderHook, waitFor } from "@testing-library/react";
 import useChatMessages from "@/hooks/useChatMessages";
-import { vi } from "vitest";
+import { vi, describe, it, expect } from "vitest";
 
 // Mock Supabase client
 vi.mock("@/lib/supabaseClient", () => {
